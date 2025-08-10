@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RailMeal Express 🚂🍱</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+        :root {
+            --primary-red: #D62828;
+            --secondary-yellow: #FFC000;
+            --white: #FFFFFF;
+            --dark-gray: #333333;
+            --light-gray: #F4F4F4;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-gray);
+            background-color: var(--light-gray);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Navigation */
+        .navbar {
+            background-color: var(--primary-red);
+            color: var(--white);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-yellow);
+        }
+
+        /* Hero Section */
+        #home {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1627992994916-d352136e0988?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
+            color: var(--white);
+            text-align: center;
+            padding: 8rem 0;
+        }
+        
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px #000;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            background-color: var(--secondary-yellow);
+            color: var(--dark-gray);
+            padding: 1rem 2rem;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #FFD700;
+        }
+
+        /* Menu Section */
+        #menu {
+            padding: 4rem 0;
+        }
+
+        h2.section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary-red);
+            position: relative;
+        }
+        
+        h2.section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary-yellow);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .menu-item {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .menu-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .item-details {
+            padding: 1.5rem;
+        }
+
+        .item-details h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .item-details .price {
+            font-weight: 700;
+            color: var(--primary-red);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .add-to-cart-btn {
+            display: block;
+            width: 100%;
+            text-align: center;
+            background-color: var(--primary-red);
+            color: var(--white);
+            padding: 0.75rem;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-to-cart-btn:hover {
+            background-color: #A31E1E;
+        }
+        
+        /* Order System Section */
+        #order-system {
+            padding: 4rem 0;
+            background-color: var(--primary-red);
+            color: var(--white);
+        }
+        
+        #order-system .section-title {
+            color: var(--white);
+        }
+        
+        #order-system .section-title::after {
+            background-color: var(--secondary-yellow);
+        }
+
+        .order-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-group input, .form-group select {
+            padding: 0.75rem;
+            border-radius: 5px;
+            border: 1px solid var(--light-gray);
+            background-color: var(--white);
+            color: var(--dark-gray);
+            font-size: 1rem;
+        }
+
+        .cart-summary {
+            background-color: var(--white);
+            color: var(--dark-gray);
+            padding: 1.5rem;
+            border-radius: 10px;
+        }
+
+        .cart-summary h3 {
+            margin-bottom: 1rem;
+        }
+        
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px dashed var(--light-gray);
+        }
+        
+        .cart-total {
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-top: 1rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Payment Gateway */
+        #payment-gateway {
+            padding: 4rem 0;
+        }
+        
+        .payment-options {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .payment-option {
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            flex: 1 1 200px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .payment-option:hover {
+            transform: translateY(-5px);
+        }
+        
+        .payment-option h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--primary-red);
+        }
+
+        .payment-option img {
+            max-width: 80px;
+        }
+        
+        /* Contact Section */
+        #contact {
+            padding: 4rem 0;
+            background-color: var(--dark-gray);
+            color: var(--white);
+        }
+        
+        #contact .section-title {
+            color: var(--white);
+        }
+        
+        #contact .section-title::after {
+            background-color: var(--secondary-yellow);
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            text-align: center;
+        }
+
+        .contact-item {
+            background-color: #444;
+            padding: 2rem;
+            border-radius: 10px;
+            flex: 1 1 250px;
+        }
+        
+        .contact-item i {
+            font-size: 2rem;
+            color: var(--secondary-yellow);
+            margin-bottom: 1rem;
+        }
+        
+        .contact-item h4 {
+            margin-bottom: 0.5rem;
+        }
+        
+        .contact-item a {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .contact-item a:hover {
+            color: var(--secondary-yellow);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-red);
+            color: var(--white);
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: 2rem;
+        }
+        
+        footer p {
+            font-size: 0.9rem;
+        }
+        
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container navbar-content">
+            <a href="#home" class="logo">RailMeal Express 🚂🍱</a>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#menu">Menu</a>
+                <a href="#order-system">Order</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <header id="home">
+        <div class="container hero-content">
+            <h1>Fresh Meals, Delivered to Your Train Seat!</h1>
+            <p>Enjoy delicious, hygienic food on your journey. We deliver directly to your coach.</p>
+            <a href="#menu" class="cta-button">View Menu & Order Now</a>
+        </div>
+    </header>
+
+    <section id="menu">
+        <div class="container">
+            <h2 class="section-title">Our Delicious Menu</h2>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <img src="https://images.unsplash.com/photo-1626080352528-910a9089e02c?q=80&w=2070&auto=format&fit=crop" alt="Veg Thali">
+                    <div class="item-details">
+                        <h3>Deluxe Veg Thali</h3>
+                        <p>A complete meal with dal, sabzi, roti, rice, and salad.</p>
+                        <div class="price">₹180</div>
+                        <button class="add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <img src="https://images.unsplash.com/photo-1546377726-5b0d0ed4b54e?q=80&w=2070&auto=format&fit=crop" alt="Non-Veg Thali">
+                    <div class="item-details">
+                        <h3>Chicken Biryani Thali</h3>
+                        <p>Aromatic chicken biryani with raita and a starter.</p>
+                        <div class="price">₹250</div>
+                        <button class="add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <img src="https://images.unsplash.com/photo-1625944299949-8c9f0b8d5a8c?q=80&w=2070&auto=format&fit=crop" alt="Snacks">
+                    <div class="item-details">
+                        <h3>Samosa & Pakora Platter</h3>
+                        <p>Crispy fried snacks with mint and tamarind chutney.</p>
+                        <div class="price">₹80</div>
+                        <button class="add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <img src="https://images.unsplash.com/photo-1616867341908-410a5198d5c4?q=80&w=2070&auto=format&fit=crop" alt="Beverages">
+                    <div class="item-details">
+                        <h3>Masala Chai & Coffee</h3>
+                        <p>Freshly brewed hot chai or coffee to refresh your journey.</p>
+                        <div class="price">₹40</div>
+                        <button class="add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="order-system">
+        <div class="container">
+            <h2 class="section-title">Place Your Order</h2>
+            <form class="order-form">
+                <div class="cart-summary">
+                    <h3>Your Cart</h3>
+                    <div class="cart-item">
+                        <span>Deluxe Veg Thali (x1)</span>
+                        <span>₹180</span>
+                    </div>
+                    <div class="cart-item">
+                        <span>Masala Chai (x2)</span>
+                        <span>₹80</span>
+                    </div>
+                    <div class="cart-total">
+                        <span>Total:</span>
+                        <span>₹260</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="train-number">Train Number</label>
+                    <input type="text" id="train-number" name="train-number" placeholder="e.g., 12345" required>
+                </div>
+                <div class="form-group">
+                    <label for="seat-number">Seat/Berth Number</label>
+                    <input type="text" id="seat-number" name="seat-number" placeholder="e.g., S3, B-45" required>
+                </div>
+                <div class="form-group">
+                    <label for="station-name">Boarding/Delivery Station</label>
+                    <input type="text" id="station-name" name="station-name" placeholder="e.g., Mumbai, Delhi, etc." required>
+                </div>
+                
+                <a href="#payment-gateway" class="cta-button">Proceed to Payment</a>
+            </form>
+        </div>
+    </section>
+    
+    <section id="payment-gateway">
+        <div class="container">
+            <h2 class="section-title">Choose Payment Method</h2>
+            <div class="payment-options">
+                <div class="payment-option">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/UPI-Logo.svg/1200px-UPI-Logo.svg.png" alt="UPI">
+                    <h4>UPI</h4>
+                    <p>Google Pay, PhonePe, Paytm</p>
+                </div>
+                <div class="payment-option">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Credit_Card_logo.svg/1280px-Credit_Card_logo.svg.png" alt="Credit/Debit Card">
+                    <h4>Credit/Debit Card</h4>
+                    <p>Visa, Mastercard, RuPay</p>
+                </div>
+                <div class="payment-option">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2836/2836371.png" alt="Net Banking">
+                    <h4>Net Banking</h4>
+                    <p>All major Indian banks</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title">Contact & Support</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fa-solid fa-phone"></i>
+                    <h4>Phone Support</h4>
+                    <p><a href="tel:+919876543210">+91 98765 43210</a></p>
+                </div>
+                <div class="contact-item">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <h4>WhatsApp</h4>
+                    <p><a href="https://wa.me/919876543210">Chat with us</a></p>
+                </div>
+                <div class="contact-item">
+                    <i class="fa-solid fa-envelope"></i>
+                    <h4>Email</h4>
+                    <p><a href="mailto:support@railmealexpress.com">support@railmealexpress.com</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 RailMeal Express. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // This is a placeholder for future dynamic functionality.
+        // For a real website, you would add code here to handle:
+        // - Adding items to a cart
+        // - Calculating the total price
+        // - Submitting the form to a backend server
+        // - Integrating with a real payment gateway
+        // For now, it's a simple, static page.
+    </script>
+</body>
+</html>
